@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI-103 Cert Buddy &mdash; Practice Question Bank</title>
+<meta name="description" content="Grounded practice questions for Exam AI-103: Developing AI Apps and Agents on Azure. Every answer cites Microsoft Learn.">
+<style>
+:root{
+  --bg:#ffffff; --fg:#16191d; --muted:#5b636d; --line:#e3e6ea; --card:#fafbfc;
+  --accent:#0b5cad; --accent-soft:#e8f1fa;
+  --ok:#1a7f45; --ok-soft:#e6f4ec; --bad:#b32828; --bad-soft:#fbeaea;
+  --code:#f4f5f7; --chip:#eef0f3;
+  --d1:#0b5cad; --d2:#6b3fa0; --d3:#a1541c; --d4:#1a7f45; --d5:#a02a4e;
+  --radius:8px; --mono:ui-monospace,SFMono-Regular,"Cascadia Mono",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:#0f1216; --fg:#e6e9ed; --muted:#98a1ac; --line:#262c34; --card:#161a20;
+    --accent:#69aef0; --accent-soft:#132434;
+    --ok:#5bd08b; --ok-soft:#12251a; --bad:#f2807c; --bad-soft:#2a1618;
+    --code:#1a1f26; --chip:#1e242b;
+    --d1:#69aef0; --d2:#b593e8; --d3:#e0a86a; --d4:#5bd08b; --d5:#ef8fae;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0f1216; --fg:#e6e9ed; --muted:#98a1ac; --line:#262c34; --card:#161a20;
+  --accent:#69aef0; --accent-soft:#132434;
+  --ok:#5bd08b; --ok-soft:#12251a; --bad:#f2807c; --bad-soft:#2a1618;
+  --code:#1a1f26; --chip:#1e242b;
+  --d1:#69aef0; --d2:#b593e8; --d3:#e0a86a; --d4:#5bd08b; --d5:#ef8fae;
+}
+:root[data-theme="light"]{
+  --bg:#ffffff; --fg:#16191d; --muted:#5b636d; --line:#e3e6ea; --card:#fafbfc;
+  --accent:#0b5cad; --accent-soft:#e8f1fa;
+  --ok:#1a7f45; --ok-soft:#e6f4ec; --bad:#b32828; --bad-soft:#fbeaea;
+  --code:#f4f5f7; --chip:#eef0f3;
+  --d1:#0b5cad; --d2:#6b3fa0; --d3:#a1541c; --d4:#1a7f45; --d5:#a02a4e;
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  -webkit-text-size-adjust:100%}
+.wrap{max-width:900px;margin:0 auto;padding:0 20px 80px}
+a{color:var(--accent)}
+code{font-family:var(--mono);font-size:.88em;background:var(--code);padding:.12em .38em;border-radius:4px}
+pre{font-family:var(--mono);font-size:13px;line-height:1.5;background:var(--code);
+  padding:12px 14px;border-radius:6px;overflow-x:auto;margin:0;white-space:pre}
+
+header{border-bottom:1px solid var(--line);margin-bottom:24px;padding:28px 0 20px}
+h1{font-size:26px;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--muted);font-size:14px;margin:0}
+.facts{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.fact{background:var(--chip);border-radius:20px;padding:4px 12px;font-size:12.5px;color:var(--muted)}
+.fact b{color:var(--fg);font-weight:600}
+
+.bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;
+  padding:14px;background:var(--card);border:1px solid var(--line);border-radius:var(--radius);margin-bottom:8px}
+select,input[type=search],button{font:inherit;font-size:14px;color:var(--fg);background:var(--bg);
+  border:1px solid var(--line);border-radius:6px;padding:7px 10px}
+input[type=search]{flex:1;min-width:180px}
+button{cursor:pointer}
+button:hover{border-color:var(--accent)}
+button.primary{background:var(--accent);color:#fff;border-color:var(--accent);font-weight:600}
+button.primary:hover{filter:brightness(1.08)}
+.count{color:var(--muted);font-size:13px;margin:0 0 22px;padding-left:2px}
+
+.q{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:16px;overflow:hidden;background:var(--card)}
+.qhead{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding:12px 16px;border-bottom:1px solid var(--line)}
+.num{font-weight:700;font-size:14px;margin-right:2px}
+.tag{font-size:11.5px;padding:2px 8px;border-radius:12px;background:var(--chip);color:var(--muted);white-space:nowrap}
+.tag.dom{color:#fff;font-weight:600}
+.dom1{background:var(--d1)}.dom2{background:var(--d2)}.dom3{background:var(--d3)}
+.dom4{background:var(--d4)}.dom5{background:var(--d5)}
+@media (prefers-color-scheme:dark){.tag.dom{color:#0f1216}}
+:root[data-theme="dark"] .tag.dom{color:#0f1216}
+:root[data-theme="light"] .tag.dom{color:#fff}
+.tag.hard{background:var(--bad-soft);color:var(--bad)}
+.qbody{padding:16px}
+.stem{margin:0 0 16px;white-space:pre-wrap}
+.stem p{margin:0 0 12px}
+.opts{list-style:none;margin:0;padding:0}
+.opt{display:flex;gap:11px;align-items:flex-start;padding:10px 12px;margin-bottom:7px;
+  border:1px solid var(--line);border-radius:6px;cursor:pointer;background:var(--bg)}
+.opt:hover{border-color:var(--accent)}
+.opt.sel{border-color:var(--accent);background:var(--accent-soft)}
+.opt.right{border-color:var(--ok);background:var(--ok-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.ltr{font-weight:700;min-width:16px;color:var(--muted)}
+.opt.right .ltr{color:var(--ok)}.opt.wrong .ltr{color:var(--bad)}
+.otxt{flex:1;min-width:0}
+.acts{margin-top:14px;display:flex;gap:9px;flex-wrap:wrap;align-items:center}
+.verdict{font-weight:600;font-size:14px}
+.verdict.ok{color:var(--ok)}.verdict.no{color:var(--bad)}
+
+.reveal{margin-top:16px;padding-top:16px;border-top:1px dashed var(--line)}
+.reveal h4{margin:0 0 10px;font-size:13px;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.rat{display:flex;gap:10px;margin-bottom:11px;font-size:14.5px}
+.rat .ltr{min-width:18px}
+.rat.key .ltr{color:var(--ok)}
+.rat.key .rtxt{border-left:2px solid var(--ok);padding-left:11px}
+.rat .rtxt{border-left:2px solid var(--line);padding-left:11px}
+.refs{margin-top:14px;font-size:13.5px}
+.refs a{display:block;margin-bottom:5px;word-break:break-word}
+.obj{font-size:13px;color:var(--muted);margin:0 0 14px;font-style:italic}
+
+.score{position:sticky;bottom:0;background:var(--bg);border-top:1px solid var(--line);
+  padding:12px 20px;display:none;gap:16px;align-items:center;flex-wrap:wrap;font-size:14px}
+.score.on{display:flex}
+.score b{font-size:17px}
+.empty{text-align:center;color:var(--muted);padding:56px 20px;border:1px dashed var(--line);border-radius:var(--radius)}
+footer{margin-top:44px;padding-top:20px;border-top:1px solid var(--line);color:var(--muted);font-size:13px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>AI-103 Practice Question Bank</h1>
+  <p class="sub">Exam AI-103: Developing AI Apps and Agents on Azure &mdash; every answer grounded in Microsoft Learn.</p>
+  <div class="facts">
+    <span class="fact">Pass score <b>700</b></span>
+    <span class="fact">Skills measured as of <b>April 16, 2026</b></span>
+    <span class="fact">Domains <b>5</b></span>
+    <span class="fact">Measurable skills <b>64</b></span>
+    <span class="fact">Questions <b id="fTotal">&mdash;</b></span>
+    <span class="fact">Objectives covered <b id="fObj">&mdash;</b></span>
+  </div>
+</header>
+
+<div class="bar">
+  <select id="fDomain">
+    <option value="">All domains</option>
+    <option value="1">1 &mdash; Plan and manage (25-30%)</option>
+    <option value="2">2 &mdash; Generative AI and agents (30-35%)</option>
+    <option value="3">3 &mdash; Computer vision (10-15%)</option>
+    <option value="4">4 &mdash; Text analysis (10-15%)</option>
+    <option value="5">5 &mdash; Information extraction (10-15%)</option>
+  </select>
+  <select id="fDiff">
+    <option value="">Any difficulty</option>
+    <option>Easy</option><option>Medium</option><option>Hard</option>
+  </select>
+  <select id="fBloom">
+    <option value="">Any Bloom level</option>
+    <option>Remember</option><option>Understand</option><option>Apply</option>
+    <option>Analyze</option><option>Evaluate</option>
+  </select>
+  <input type="search" id="fText" placeholder="Search stems, objectives, services&hellip;">
+</div>
+<div class="bar">
+  <button id="bShuffle">Shuffle</button>
+  <button id="bReset">Reset answers</button>
+  <button id="bRevealAll">Reveal all</button>
+  <button class="primary" id="bExam">Start 40-question mock exam</button>
+</div>
+
+<p class="count" id="count"></p>
+<div id="list"></div>
+
+<footer>
+  <p><strong>Grounding contract.</strong> Every item cites at least one live Microsoft Learn URL, retrieved through the
+  Microsoft Learn MCP server. Distractors reference real Azure and Microsoft Foundry features only. Items follow the
+  Microsoft Worldwide Learning exam-writing style guide. Fictional companies come from the WWL-approved list.</p>
+  <p>This bank is study material. It is not a brain dump, and it does not reproduce live exam content.
+  Verify against the <a href="https://learn.microsoft.com/credentials/certifications/resources/study-guides/ai-103">official AI-103 study guide</a>
+  before relying on any item &mdash; Azure AI changes quickly.</p>
+  <p>AI-103 Cert Buddy by Tim Warner, TechTrainerTim.com. MIT licensed.</p>
+</footer>
+
+</div>
+
+<div class="score" id="score">
+  <span>Answered <b id="sAns">0</b></span>
+  <span>Correct <b id="sOk">0</b></span>
+  <span>Score <b id="sPct">0%</b></span>
+  <span id="sDom" style="color:var(--muted);font-size:13px"></span>
+</div>
+
+<!-- bank.js is generated: node tools/build-bank.mjs && node tools/validate-bank.mjs
+     Authoring source lives in docs/bank/*.js, one file per objective block. -->
+<script src="objectives.js"></script>
+<script src="bank.js?v=97fe535c"></script>
+<script>
+(function(){
+"use strict";
+var LTR = ["A","B","C","D","E"];
+var state = {};          // id -> {picked:int, shown:bool}
+var view  = [];          // current filtered/ordered list
+var KEY   = "ai103-bank-v1";
+
+try { state = JSON.parse(localStorage.getItem(KEY) || "{}"); } catch(e){ state = {}; }
+function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch(e){} }
+
+function esc(s){
+  return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+}
+// escape first, then promote `code` spans
+function rich(s){
+  return esc(s).replace(/`([^`]+)`/g, function(_,m){ return "<code>"+m+"</code>"; });
+}
+function stemHtml(s){
+  return rich(s).split(/\n\n+/).map(function(p){
+    return "<p>"+p.replace(/\n/g,"<br>")+"</p>";
+  }).join("");
+}
+
+function card(q, i){
+  var st = state[q.id] || {};
+  var shown = !!st.shown;
+  var picked = (typeof st.picked === "number") ? st.picked : null;
+
+  var h = '<div class="q" data-id="'+q.id+'">';
+  h += '<div class="qhead">';
+  h += '<span class="num">Q'+(i+1)+'</span>';
+  h += '<span class="tag dom dom'+q.domain+'">Domain '+q.domain+'</span>';
+  h += '<span class="tag">'+esc(q.objective)+'</span>';
+  h += '<span class="tag">'+esc(q.bloom)+'</span>';
+  h += '<span class="tag'+(q.difficulty==="Hard"?" hard":"")+'">'+esc(q.difficulty)+'</span>';
+  h += '<span class="tag">#'+q.id+'</span>';
+  h += '</div><div class="qbody">';
+  // Render objective text from the canonical study-guide list, never from the item.
+  // validate-bank.mjs already fails any item whose objectiveText drifts from this.
+  var canon = (typeof OBJECTIVES !== "undefined" && OBJECTIVES[q.objective]) || q.objectiveText;
+  var area  = (typeof SUBAREAS !== "undefined" && SUBAREAS[q.objective.split(".").slice(0,2).join(".")]) || "";
+  if (canon){
+    h += '<p class="obj">'+(area ? esc(area)+' &mdash; ' : '')+esc(canon)+'</p>';
+  }
+  h += '<div class="stem">'+stemHtml(q.stem)+'</div>';
+
+  h += '<ul class="opts">';
+  q.choices.forEach(function(c, idx){
+    var cls = "opt";
+    if (shown){
+      if (idx === q.correct) cls += " right";
+      else if (idx === picked) cls += " wrong";
+    } else if (idx === picked) cls += " sel";
+    var body = q.code ? "<pre>"+esc(c)+"</pre>" : rich(c);
+    h += '<li class="'+cls+'" data-i="'+idx+'"><span class="ltr">'+LTR[idx]+'</span><span class="otxt">'+body+'</span></li>';
+  });
+  h += '</ul>';
+
+  h += '<div class="acts">';
+  if (!shown){
+    h += '<button class="primary reveal-btn">Reveal answer</button>';
+    h += '<button class="skip-btn">Skip</button>';
+  } else {
+    if (picked === null) h += '<span class="verdict">Skipped &mdash; correct answer is '+LTR[q.correct]+'</span>';
+    else if (picked === q.correct) h += '<span class="verdict ok">Correct</span>';
+    else h += '<span class="verdict no">Incorrect &mdash; correct answer is '+LTR[q.correct]+'</span>';
+    h += '<button class="again-btn">Try again</button>';
+  }
+  h += '</div>';
+
+  if (shown){
+    h += '<div class="reveal"><h4>Why each choice</h4>';
+    (q.rationales||[]).forEach(function(r, idx){
+      h += '<div class="rat'+(idx===q.correct?" key":"")+'"><span class="ltr">'+LTR[idx]+'</span>'+
+           '<span class="rtxt">'+rich(r)+'</span></div>';
+    });
+    if (q.refs && q.refs.length){
+      h += '<div class="refs"><h4>Microsoft Learn</h4>';
+      q.refs.forEach(function(u){
+        h += '<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(u)+'</a>';
+      });
+      h += '</div>';
+    }
+    h += '</div>';
+  }
+  h += '</div></div>';
+  return h;
+}
+
+function render(){
+  var list = document.getElementById("list");
+  if (!view.length){
+    list.innerHTML = '<div class="empty">No questions match these filters.</div>';
+    document.getElementById("count").textContent = "";
+    return;
+  }
+  list.innerHTML = view.map(card).join("");
+  document.getElementById("count").textContent =
+    "Showing " + view.length + " of " + QUESTIONS.length + " questions.";
+  updateScore();
+}
+
+function applyFilters(){
+  var d = document.getElementById("fDomain").value;
+  var f = document.getElementById("fDiff").value;
+  var b = document.getElementById("fBloom").value;
+  var t = document.getElementById("fText").value.trim().toLowerCase();
+
+  view = QUESTIONS.filter(function(q){
+    if (d && String(q.domain) !== d) return false;
+    if (f && q.difficulty !== f) return false;
+    if (b && q.bloom !== b) return false;
+    if (t){
+      var hay = (q.stem+" "+q.objective+" "+(q.objectiveText||"")+" "+q.choices.join(" ")+" "+
+                 (q.rationales||[]).join(" ")).toLowerCase();
+      if (hay.indexOf(t) === -1) return false;
+    }
+    return true;
+  });
+  render();
+}
+
+function updateScore(){
+  var ans = 0, ok = 0, per = {1:[0,0],2:[0,0],3:[0,0],4:[0,0],5:[0,0]};
+  QUESTIONS.forEach(function(q){
+    var st = state[q.id];
+    if (!st || !st.shown || typeof st.picked !== "number") return;
+    ans++; per[q.domain][1]++;
+    if (st.picked === q.correct){ ok++; per[q.domain][0]++; }
+  });
+  var el = document.getElementById("score");
+  if (!ans){ el.classList.remove("on"); return; }
+  el.classList.add("on");
+  document.getElementById("sAns").textContent = ans;
+  document.getElementById("sOk").textContent = ok;
+  document.getElementById("sPct").textContent = Math.round(ok/ans*100) + "%";
+  document.getElementById("sDom").textContent = [1,2,3,4,5]
+    .filter(function(k){ return per[k][1]; })
+    .map(function(k){ return "D"+k+" "+per[k][0]+"/"+per[k][1]; })
+    .join("  ·  ");
+}
+
+document.getElementById("list").addEventListener("click", function(ev){
+  var qEl = ev.target.closest(".q");
+  if (!qEl) return;
+  var id = Number(qEl.dataset.id);
+  var q  = QUESTIONS.find(function(x){ return x.id === id; });
+  if (!q) return;
+  state[id] = state[id] || {};
+
+  var opt = ev.target.closest(".opt");
+  if (opt && !state[id].shown){
+    state[id].picked = Number(opt.dataset.i);
+    save(); render(); return;
+  }
+  if (ev.target.closest(".reveal-btn")){ state[id].shown = true; save(); render(); return; }
+  if (ev.target.closest(".skip-btn")){ state[id].shown = true; state[id].picked = null; save(); render(); return; }
+  if (ev.target.closest(".again-btn")){ delete state[id]; save(); render(); return; }
+});
+
+["fDomain","fDiff","fBloom"].forEach(function(idAttr){
+  document.getElementById(idAttr).addEventListener("change", applyFilters);
+});
+var typing;
+document.getElementById("fText").addEventListener("input", function(){
+  clearTimeout(typing); typing = setTimeout(applyFilters, 180);
+});
+
+function shuffle(a){
+  for (var i=a.length-1;i>0;i--){ var j=Math.floor(Math.random()*(i+1)); var t=a[i]; a[i]=a[j]; a[j]=t; }
+  return a;
+}
+document.getElementById("bShuffle").addEventListener("click", function(){ shuffle(view); render(); });
+document.getElementById("bReset").addEventListener("click", function(){
+  if (!confirm("Clear every answer and reveal state?")) return;
+  state = {}; save(); render();
+});
+document.getElementById("bRevealAll").addEventListener("click", function(){
+  view.forEach(function(q){ state[q.id] = state[q.id] || {}; state[q.id].shown = true; });
+  save(); render();
+});
+document.getElementById("bExam").addEventListener("click", function(){
+  // Blueprint-weighted 40-item mock: D1 11, D2 13, D3 5, D4 5, D5 6
+  var want = {1:11, 2:13, 3:5, 4:5, 5:6}, picked = [];
+  [1,2,3,4,5].forEach(function(d){
+    var pool = shuffle(QUESTIONS.filter(function(q){ return q.domain === d; }).slice());
+    picked = picked.concat(pool.slice(0, want[d]));
+  });
+  shuffle(picked);
+  picked.forEach(function(q){ delete state[q.id]; });
+  save();
+  view = picked;
+  document.getElementById("fDomain").value = "";
+  document.getElementById("fDiff").value = "";
+  document.getElementById("fBloom").value = "";
+  document.getElementById("fText").value = "";
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+});
+
+// Boot
+QUESTIONS.sort(function(a,b){ return a.id - b.id; });
+document.getElementById("fTotal").textContent = QUESTIONS.length;
+document.getElementById("fObj").textContent =
+  new Set(QUESTIONS.map(function(q){ return q.objective; })).size + " / 64";
+applyFilters();
+})();
+</script>
+</body>
+</html>
